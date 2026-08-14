@@ -332,7 +332,6 @@ fn detect_player_hits(
 }
 
 fn check_game_over(
-    stats: Res<GameStats>,
     invaders: Query<&Transform, With<Invader>>,
     mut next_state: ResMut<NextState<GameState>>,
     mut game_stats: ResMut<GameStats>,
@@ -340,7 +339,7 @@ fn check_game_over(
     if invaders.is_empty() {
         game_stats.won = true;
         next_state.set(GameState::GameOver);
-    } else if stats.lives == 0
+    } else if game_stats.lives == 0
         || invaders
             .iter()
             .any(|transform| transform.translation.y <= -255.0)
